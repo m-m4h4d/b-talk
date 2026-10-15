@@ -1,6 +1,6 @@
 import React from 'react';
 import { i2 } from '../Images';
-import { Grid, Typography, Box, Button, Card, CardContent, CardMedia, CardActions, IconButton, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Grid, Typography, Box, Button, Card, CardContent, CardMedia, CardActions, IconButton, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { Home, Folder, Schedule, Person, AttachMoney, Help, ChatBubbleOutline } from '@mui/icons-material';
 
 const DashboardInstructor = () => {
@@ -23,10 +23,10 @@ const DashboardInstructor = () => {
             <Box sx={{ width: '250px', backgroundColor: '#f9fafb', padding: '20px' }}>
                 <List>
                     {menuItems.map((item, index) => (
-                        <ListItem button key={index}>
+                        <ListItemButton key={index}>
                             <ListItemIcon>{item.icon}</ListItemIcon>
                             <ListItemText primary={item.text} />
-                        </ListItem>
+                        </ListItemButton>
                     ))}
                 </List>
                 <Button variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>

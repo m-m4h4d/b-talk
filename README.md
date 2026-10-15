@@ -1,5 +1,7 @@
 # BestTalk — The Canadian Way
 
+**Live demo: [b-talk.vercel.app](https://b-talk.vercel.app)**
+
 BestTalk is a front-end showcase for a one-on-one online tutoring platform. Learners browse and filter tutors, view profiles and book lessons; tutors sign up through a multi-step onboarding flow; and students, tutors and admins each get their own dashboard.
 
 It is built with React and Material UI. There is no backend: tutors, conversations and dashboard stats are sample data, and sign-in is mocked (see [Demo notes](#demo-notes)).
@@ -44,7 +46,7 @@ npm install
 npm start
 ```
 
-The app runs at <http://localhost:3000>. To build for production, run `npm run build` and serve the `build/` folder with any static host (Netlify, Vercel, GitHub Pages, …). Configure the host to send every route to `index.html` so client-side routing works.
+The app runs at <http://localhost:3000>. Run the tests with `npm test`. To build for production, run `npm run build` and serve the `build/` folder with any static host (Netlify, Vercel, GitHub Pages, …). Configure the host to send every route to `index.html` so client-side routing works.
 
 ## Pages
 

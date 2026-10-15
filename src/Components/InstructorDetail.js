@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   Container,
   Typography,
@@ -12,36 +12,58 @@ import {
   Divider
 } from "@mui/material";
 import { ScheduleLessonPopup, Navbar, Footer } from "./";
+import { findInstructor } from "../data/instructors";
 
 const InstructorDetail = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const instructor = location.state || {};
+  const { id } = useParams();
+  const instructor = findInstructor(id);
 
   const [popupOpen, setPopupOpen] = useState(false);
 
   const handleOpenPopup = () => {
-    if (Object.keys(instructor).length === 0) {
-      navigate("/instructor-listing");
-    } else {
-      setPopupOpen(true);
-    }
+    setPopupOpen(true);
   };
 
   const handleClosePopup = () => {
     setPopupOpen(false);
   };
 
+  if (!instructor) {
+    return (
+      <div>
+        <Navbar />
+        <Container sx={{ py: 10, textAlign: "center" }}>
+          <Typography variant="h4" gutterBottom>
+            Tutor not found
+          </Typography>
+          <Typography variant="body1" color="textSecondary" gutterBottom>
+            This tutor profile doesn't exist or is no longer available.
+          </Typography>
+          <Button
+            component={Link}
+            to="/instructor-listing"
+            variant="contained"
+            sx={{ mt: 2 }}
+          >
+            Browse tutors
+          </Button>
+        </Container>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div>
       <Navbar />
       <Container>
-        <Box textAlign="center" mb={4}>
+        <Box textAlign="center" mt={4} mb={4}>
           <Avatar
             alt={instructor.name}
-            src={instructor.image}
-            sx={{ width: 100, height: 100, margin: "0 auto" }}
-          />
+            sx={{ width: 100, height: 100, margin: "0 auto", fontSize: 40 }}
+          >
+            {instructor.name.charAt(0)}
+          </Avatar>
           <Typography variant="h4" mt={2}>
             {instructor.name || "Instructor Name"}
           </Typography>

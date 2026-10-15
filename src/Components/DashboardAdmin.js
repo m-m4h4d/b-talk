@@ -1,6 +1,6 @@
-import React from 'react';
-import { Avatar, Box, Grid, List, ListItem, ListItemIcon, ListItemText, Typography, Paper, Button } from '@mui/material';
-import { GroupOutlined, Dashboard, People, School, Report, Settings, Help, ImportContactsOutlined, East, Today, MonetizationOnOutlined } from '@mui/icons-material';
+import React, { useState } from 'react';
+import { Avatar, Box, Drawer, Grid, IconButton, List, ListItemButton, ListItemIcon, ListItemText, Typography, Paper, Button } from '@mui/material';
+import { Menu, GroupOutlined, Dashboard, People, School, Report, Settings, Help, ImportContactsOutlined, East, Today, MonetizationOnOutlined } from '@mui/icons-material';
 import { logo } from '../Images';
 
 const sidebarItems = [
@@ -33,32 +33,51 @@ const statistics = [
     { icon: <MonetizationOnOutlined />, label: 'Revenue', value: '$2.3M' },
 ];
 
+const SidebarNav = () => (
+    <List>
+        {sidebarItems.map((item, index) => (
+            <ListItemButton key={index}>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.text} />
+            </ListItemButton>
+        ))}
+    </List>
+);
+
 const DashboardAdmin = () => {
+    const [drawerOpen, setDrawerOpen] = useState(false);
+
     return (
         <Grid container>
-            <Grid sx={{ borderRight: '1px solid #e0e0e0' }} size={{ xs: 2 }}>
-                <Box sx={{ padding: 2, height: '100vh' }}>
+            {/* Desktop: fixed sidebar */}
+            <Grid sx={{ borderRight: '1px solid #e0e0e0', display: { xs: 'none', lg: 'block' } }} size={{ lg: 2 }}>
+                <Box sx={{ padding: 2, minHeight: '100vh' }}>
                     <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
                         <Avatar src={logo} alt="Logo" sx={{ width: 100, height: 100 }} />
                     </Box>
-                    <List>
-                        {sidebarItems.map((item, index) => (
-                            <ListItem button key={index}>
-                                <ListItemIcon>{item.icon}</ListItemIcon>
-                                <ListItemText primary={item.text} />
-                            </ListItem>
-                        ))}
-                    </List>
+                    <SidebarNav />
                 </Box>
             </Grid>
-            <Grid size={{ xs: 10 }}>
-                <Box sx={{ padding: 3 }}>
+            {/* Mobile: top bar with the sidebar in a drawer */}
+            <Grid size={{ xs: 12 }} sx={{ display: { xs: 'flex', lg: 'none' }, alignItems: 'center', justifyContent: 'space-between', px: 2, py: 1, borderBottom: '1px solid #e0e0e0' }}>
+                <Avatar src={logo} alt="Logo" sx={{ width: 48, height: 48 }} />
+                <IconButton aria-label="Open navigation" onClick={() => setDrawerOpen(true)}>
+                    <Menu />
+                </IconButton>
+            </Grid>
+            <Drawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+                <Box sx={{ width: 240, pt: 2 }} onClick={() => setDrawerOpen(false)}>
+                    <SidebarNav />
+                </Box>
+            </Drawer>
+            <Grid size={{ xs: 12, lg: 10 }}>
+                <Box sx={{ padding: { xs: 2, md: 3 } }}>
                     <Typography variant="h4" gutterBottom>
                         Welcome back, Admin.
                     </Typography>
                     <Typography variant="h6" gutterBottom><b>System Health</b></Typography>
                     <Paper sx={{ padding: 2, marginBottom: 3 }}>
-                        <Typography variant="h7" gutterBottom><b>View System Status</b></Typography>
+                        <Typography variant="subtitle1" gutterBottom><b>View System Status</b></Typography>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Typography>All systems operational</Typography>
                             <Button variant="text" style={{ color: "black" }} endIcon={<East />}><b>View</b></Button>
@@ -81,7 +100,7 @@ const DashboardAdmin = () => {
                     <Typography variant="h6" gutterBottom><b>Statistics</b></Typography>
                     <Grid container spacing={2}>
                         {statistics.map((stat, index) => (
-                            <Grid key={index} size={{ xs: 3 }}>
+                            <Grid key={index} size={{ xs: 6, md: 3 }}>
                                 <Paper sx={{ padding: 2, textAlign: 'center' }}>
                                     {stat.icon}
                                     <Typography variant="h6">{stat.label}</Typography>

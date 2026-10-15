@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Landing, Chat, Signup, Login, Question, InstructorSearch, DashboardInstructor, DashboardAdmin, DashboardStudent, InstructorListing, InstructorDetail, Stepper, Contact, About } from './Components';
 
 function App() {
@@ -17,7 +17,8 @@ function App() {
                 <Route path="/student-dashboard" element={<DashboardStudent />} />
                 <Route path="/admin-dashboard" element={<DashboardAdmin />} />
                 <Route path="/instructor-listing" element={<InstructorListing />} />
-                <Route path="/instructor-detail" element={<InstructorDetail />} />
+                <Route path="/instructors/:id" element={<InstructorDetail />} />
+                <Route path="/instructor-detail" element={<Navigate to="/instructor-listing" replace />} />
                 <Route path="/chat" element={<Chat />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/about" element={<About />} />

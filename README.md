@@ -52,7 +52,7 @@ The app runs at <http://localhost:3000>. To build for production, run `npm run b
 | --- | --- |
 | `/` | Landing page |
 | `/instructor-listing` | Tutor search with filters |
-| `/instructor-detail` | Tutor profile and lesson booking (open it from the listing) |
+| `/instructors/:id` | Tutor profile and lesson booking, e.g. `/instructors/john` |
 | `/signup`, `/login` | Sign up and log in |
 | `/question` | Learner goals questionnaire (after signing up as a learner) |
 | `/stepper` | Tutor onboarding wizard (after signing up as a tutor) |

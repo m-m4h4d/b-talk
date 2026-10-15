@@ -1,191 +1,82 @@
-# BestTalk - The Canadian Way
+# BestTalk — The Canadian Way
 
-Welcome to Best Talk! This application empowers users' learning journeys with the best tutors. Our online tutors offer personalized, one-on-one learning to help you improve your grades, build your confidence, and achieve your academic goals.
+BestTalk is a front-end showcase for a one-on-one online tutoring platform. Learners browse and filter tutors, view profiles and book lessons; tutors sign up through a multi-step onboarding flow; and students, tutors and admins each get their own dashboard.
 
-## Table of Contents
+It is built with React and Material UI. There is no backend: tutors, conversations and dashboard stats are sample data, and sign-in is mocked (see [Demo notes](#demo-notes)).
 
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Components](#components)
-- [Contributing](#contributing)
-- [License](#license)
+![Landing page](docs/screenshots/landing.webp)
+
+## Screenshots
+
+| Find a tutor | Tutor profile |
+| --- | --- |
+| ![Instructor listing with filters](docs/screenshots/instructor-listing.webp) | ![Instructor profile](docs/screenshots/instructor-detail.webp) |
+| **Chat** | **Tutor onboarding** |
+| ![Chat with text, image, video and voice messages](docs/screenshots/chat.webp) | ![Multi-step tutor onboarding](docs/screenshots/tutor-onboarding.webp) |
+
+<p align="center"><img src="docs/screenshots/landing-mobile.webp" alt="Landing page on mobile" width="300"></p>
 
 ## Features
 
-- Personalized, one-on-one online tutoring.
-- A variety of courses to choose from.
-- Certified teachers.
-- Online courses with certification.
-- 1-to-1 learning experiences.
-- Free trial lesson for every student.
-- Opportunities for tutors to boost their tutoring careers.
+- **Landing page:** hero, course categories, "Why choose us", free-trial and "become a tutor" calls to action. The layout is responsive, with a drawer menu on mobile.
+- **Tutor search:** filter by price range, country, languages spoken, native speakers, "super teachers", available hours and days, and areas of expertise.
+- **Tutor profiles:** stats, bio, skills, experience and an intro video, plus a lesson-scheduling dialog with a Stripe card form.
+- **Sign-up flows:** learners answer a short goals questionnaire, and tutors complete an 8-step onboarding wizard (education, subjects, expertise, experience, certifications, introduction, availability).
+- **Chat:** send text messages, upload images and video, and record voice notes in the browser with the MediaRecorder API.
+- **Dashboards:** separate views for students, instructors and admins.
+- **About and Contact pages**, including an auto-playing image carousel.
 
-## Technologies Used
+## Tech stack
 
-- **React**: JavaScript library for building user interfaces.
-- **Material UI**: React component library for faster and easier web development.
-- **React Icons**: Collection of popular icons.
-- **CSS**: Custom styling for the app.
+- [React 19](https://react.dev/) with [Create React App](https://create-react-app.dev/)
+- [Material UI 7](https://mui.com/) and MUI icons
+- [React Router 7](https://reactrouter.com/)
+- [Stripe Elements](https://stripe.com/docs/stripe-js/react) (UI only, see below)
 
-## Installation
+## Getting started
 
-To run this project locally, follow these steps:
+Requires Node.js 18 or newer.
 
-1. Clone the repository:
+```bash
+git clone https://github.com/m-m4h4d/b-talk.git
+cd b-talk
+npm install
+npm start
+```
 
-   ```bash
-   git clone https://github.com/m-m4h4d/best-talk.git
-   ```
+The app runs at <http://localhost:3000>. To build for production, run `npm run build` and serve the `build/` folder with any static host (Netlify, Vercel, GitHub Pages, …). Configure the host to send every route to `index.html` so client-side routing works.
 
-2. Navigate to the project directory:
+## Pages
 
-   ```bash
-   cd best-talk
-   ```
+| Route | Page |
+| --- | --- |
+| `/` | Landing page |
+| `/instructor-listing` | Tutor search with filters |
+| `/instructor-detail` | Tutor profile and lesson booking (open it from the listing) |
+| `/signup`, `/login` | Sign up and log in |
+| `/question` | Learner goals questionnaire (after signing up as a learner) |
+| `/stepper` | Tutor onboarding wizard (after signing up as a tutor) |
+| `/chat` | Messaging |
+| `/student-dashboard`, `/instructor-dashboard`, `/admin-dashboard` | Dashboards |
+| `/about`, `/contact` | About and Contact |
 
-3. Install the dependencies:
+## Demo notes
 
-   ```bash
-   npm install
-   ```
+- **Admin login:** `admin@example.com` / `Bingo.123` opens the admin dashboard. No other accounts exist; the other dashboards can be opened directly from the routes above.
+- **Data:** tutors, reviews, conversations and stats are hard-coded sample data, and form submissions are only logged to the browser console.
+- **Payments:** the Stripe form uses a placeholder publishable key and no backend, so no real payments are made.
 
-4. Start the development server:
+## Project structure
 
-   ```bash
-   npm start
-   ```
-
-## Usage
-
-After starting the development server, you can access the application at `http://localhost:3000`.
-
-### Landing Page
-
-- **Empower Your Learning Journey**: Highlights the benefits of using the app with a call-to-action button.
-- **Learn Anything You Want**: Brief overview of the course offerings.
-
-### Why Choose Us?
-
-- **Certified Teachers**: Information about our certified teachers.
-- **Online Courses**: Details about the courses offered.
-- **Certification**: Information about obtaining certifications.
-- **1-to-1 Learning**: Details about personalized learning experiences.
-
-### Get Free Trial Lesson
-
-- Information about the free trial lesson.
-- Call-to-action button to sign up.
-
-### Boost Your Tutoring Career
-
-- Information for potential tutors about the benefits of joining the platform.
-- Call-to-action button to become a tutor.
-
-### Footer
-
-- Contact information and social media links.
-
-## Components
-
-### `App.js`
-
-The main component that renders the entire application.
-
-### `Navbar.js`
-
-Responsive navigation bar with menu items and a sign-up drawer.
-
-### `Footer.js`
-
-Footer with company information, course links, and social media icons.
-
-## Contributing
-
-We welcome contributions to improve the Best Talk App! To contribute:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes and commit them (`git commit -a -m 'Add new feature'`).
-4. Push to the branch (`git push origin feature-branch`).
-5. Create a pull request.
+```
+src/
+├── App.js              # Routes
+├── App.css             # Landing page and shared styles
+├── Components/         # One file per page or major component
+│   └── Steps/          # Tutor onboarding wizard steps
+└── Images/             # WebP assets, re-exported from index.js
+```
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-Thank you for using the Learning Journey App! We hope it helps you achieve your academic goals. For any questions or support, please contact us at <support@besttalk.com>.
-
-## Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Released under the [MIT License](LICENSE).

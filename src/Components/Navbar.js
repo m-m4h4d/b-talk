@@ -24,7 +24,7 @@ const Navbar = () => {
     const signupOpen = Boolean(signupAnchorEl);
 
     const menuItems = [
-        { text: 'Courses', onClick: () => alert('clicked') },
+        { text: 'Find a Tutor', component: Link, to: '/instructor-listing' },
         { text: 'About', component: Link, to: '/about' },
         { text: 'Contact', component: Link, to: '/contact' },
         { text: 'Login', component: Link, to: '/login' },

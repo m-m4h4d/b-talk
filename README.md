@@ -76,3 +76,7 @@ src/
 │   └── Steps/          # Tutor onboarding wizard steps
 └── Images/             # WebP assets, re-exported from index.js
 ```
+
+## License
+
+Released under the [MIT License](LICENSE).

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import '../App.css';
-import { Navbar, Tabs, Footer } from './';
+import Navbar from './Navbar';
+import Tabs from './Tabs';
+import Footer from './Footer';
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { language, programming, math, design, image, learn, a, b, c, d } from '../Images';

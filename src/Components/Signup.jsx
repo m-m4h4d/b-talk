@@ -1,14 +1,21 @@
 import * as React from 'react';
 import { Box, Button, Container, TextField, Typography, Link as MuiLink } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
-import { Footer, Navbar } from './';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import Footer from './Footer';
+import Navbar from './Navbar';
 
-function Login() {
-    const Navigate = new useNavigate();
+function Signup() {
     const [values, setValues] = React.useState({
+        firstName: '',
+        lastName: '',
         email: '',
         password: '',
+        confirmPassword: ''
     });
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const category = location.state?.category || 'NULL';
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -29,32 +36,60 @@ function Login() {
             return;
         }
 
-        if (values.email === "admin@example.com" && values.password === "Bingo.123") {
-            Navigate("/admin-dashboard");
-        } else {
-            alert("Invalid Email or Password.");
+        if (values.password !== values.confirmPassword) {
+            alert("Passwords do not match!");
             return;
         }
 
-        console.log(JSON.stringify(values, null, 2));
+        const { confirmPassword, ...data } = values;
+        const userData = {category, ...data};
+
+        if (category === 'Learner') {
+            navigate('/question', { state: { userData } });
+        } else {
+            navigate('/stepper', { state: { userData } });
+        }
     };
 
+
     return (
-        <div style={{ background: '#F7FAFC' }}>
+        <div style={{ background: '#F7FAFC', width: "100%" }}>
             <Navbar />
-            <Container style={{ padding: '2rem', paddingBottom: '8.4rem' }} align='center'>
+            <Container align='center'>
                 <Box align='center' width='20rem'>
                     <Typography variant="h4" align='center' textAlign='left'>
-                        Log in
+                        Sign up
                     </Typography>
                     <Typography variant="body1" align='center' textAlign='left'>
-                        Don't have an account?&nbsp;
-                        <MuiLink component={Link} to='/signup'
+                        Already have an account?&nbsp;
+                        <MuiLink component={Link} to='/login'
                             style={{ textDecoration: 'none', color: 'black' }}>
-                            Sign up
+                            Log in
                         </MuiLink>
                     </Typography>
                     <form onSubmit={handleSubmit}>
+                        <TextField
+                            required
+                            fullWidth
+                            margin='normal'
+                            id='firstName'
+                            label='First Name'
+                            size='small'
+                            value={values.firstName}
+                            onChange={handleChange('firstName')}
+                            style={{ background: '#E8EDF5', color: '#4A789C' }}
+                        />
+                        <TextField
+                            required
+                            fullWidth
+                            margin='normal'
+                            id='lastName'
+                            label='Last Name'
+                            size='small'
+                            value={values.lastName}
+                            onChange={handleChange('lastName')}
+                            style={{ background: '#E8EDF5', color: '#4A789C' }}
+                        />
                         <TextField
                             required
                             fullWidth
@@ -79,6 +114,18 @@ function Login() {
                             onChange={handleChange('password')}
                             style={{ background: '#E8EDF5', color: '#4A789C' }}
                         />
+                        <TextField
+                            required
+                            fullWidth
+                            margin='normal'
+                            id='confirmPassword'
+                            label='Confirm Password'
+                            type='password'
+                            size='small'
+                            value={values.confirmPassword}
+                            onChange={handleChange('confirmPassword')}
+                            style={{ background: '#E8EDF5', color: '#4A789C' }}
+                        />
                         <Button
                             type='submit'
                             variant='contained'
@@ -87,7 +134,7 @@ function Login() {
                                 margin: '1rem',
                                 background: '#2196D4'
                             }}>
-                            Log In
+                            Continue
                         </Button>
                     </form>
                     <Typography
@@ -96,7 +143,8 @@ function Login() {
                         textAlign='center'
                         color='#4A789C'
                         style={{ margin: '0.25rem' }}>
-                        Forgot Password?
+                        By clicking on continue,
+                        you agree to our terms of service and privacy policy
                     </Typography>
                 </Box>
             </Container>
@@ -105,4 +153,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default Signup;

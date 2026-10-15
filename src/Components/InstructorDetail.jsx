@@ -11,7 +11,9 @@ import {
   CardContent,
   Divider
 } from "@mui/material";
-import { ScheduleLessonPopup, Navbar, Footer } from "./";
+import ScheduleLessonPopup from "./ScheduleLessonPopup";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 import { findInstructor } from "../data/instructors";
 
 const InstructorDetail = () => {

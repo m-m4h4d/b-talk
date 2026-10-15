@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, IconButton, Button, Grid, Drawer, List, ListItem, ListItemText, Typography, Popover, Link as MuiLink, Container } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Button, Grid, Drawer, List, ListItemButton, ListItemText, Typography, Popover, Link as MuiLink, Container } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { logo } from '../Images';
 import Tabs from './Tabs';
@@ -67,13 +67,13 @@ const Navbar = () => {
                 <Drawer anchor='right' open={drawerOpen} onClose={handleDrawerToggle}>
                     <List>
                         {menuItems.map((item, index) => (
-                            <ListItem button key={index} onClick={item.onClick} component={item.component ? item.component : 'div'} to={item.to}>
+                            <ListItemButton key={index} onClick={item.onClick} component={item.component ? item.component : 'div'} to={item.to}>
                                 <ListItemText>
                                     <Typography variant="button" display="block">
                                         {item.text}
                                     </Typography>
                                 </ListItemText>
-                            </ListItem>
+                            </ListItemButton>
                         ))}
                     </List>
                 </Drawer>

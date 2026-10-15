@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Box, TextField, Button, Typography, Container, Divider } from '@mui/material';
-import { Navbar, Footer } from './';
+import Navbar from './Navbar';
+import Footer from './Footer';
 
 const Contact = () => {
     const [form, setForm] = useState({

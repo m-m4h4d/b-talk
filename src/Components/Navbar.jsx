@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AppBar, Toolbar, IconButton, Button, Grid, Drawer, List, ListItem, ListItemText, Typography, Popover, Link as MuiLink, Container } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { logo } from '../Images';
-import { Tabs } from './';
+import Tabs from './Tabs';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {

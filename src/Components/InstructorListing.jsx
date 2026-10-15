@@ -19,7 +19,8 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import { Navbar, Footer } from "./";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 import { instructors } from "../data/instructors";
 
 

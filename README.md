@@ -30,14 +30,15 @@ It is built with React and Material UI. There is no backend: tutors, conversatio
 
 ## Tech stack
 
-- [React 19](https://react.dev/) with [Create React App](https://create-react-app.dev/)
+- [React 19](https://react.dev/), built with [Vite](https://vite.dev/)
 - [Material UI 7](https://mui.com/) and MUI icons
 - [React Router 7](https://reactrouter.com/)
 - [Stripe Elements](https://stripe.com/docs/stripe-js/react) (UI only, see below)
+- [Vitest](https://vitest.dev/) and [Testing Library](https://testing-library.com/) for tests
 
 ## Getting started
 
-Requires Node.js 18 or newer.
+Requires Node.js 20.19+ or 22.12+ (running the tests needs 22.12+).
 
 ```bash
 git clone https://github.com/m-m4h4d/b-talk.git
@@ -46,7 +47,16 @@ npm install
 npm start
 ```
 
-The app runs at <http://localhost:3000>. Run the tests with `npm test`. To build for production, run `npm run build` and serve the `build/` folder with any static host (Netlify, Vercel, GitHub Pages, …). Configure the host to send every route to `index.html` so client-side routing works.
+The dev server runs at <http://localhost:3000>.
+
+| Command | What it does |
+| --- | --- |
+| `npm start` | Start the Vite dev server with hot reload |
+| `npm test` | Run the tests with Vitest (watch mode; `npx vitest run` runs once) |
+| `npm run build` | Build for production into `dist/` |
+| `npm run preview` | Serve the production build locally |
+
+The `dist/` folder can be deployed to any static host (Netlify, Vercel, GitHub Pages, …). Configure the host to send every route to `index.html` so client-side routing works; `vercel.json` already does this for Vercel.
 
 ## Pages
 
@@ -71,11 +81,16 @@ The app runs at <http://localhost:3000>. Run the tests with `npm test`. To build
 ## Project structure
 
 ```
+index.html              # Vite entry page
+vite.config.js          # Vite and Vitest config
+vercel.json             # Vercel build settings and SPA rewrite
 src/
-├── App.js              # Routes
+├── index.jsx           # React entry point
+├── App.jsx             # Routes (each page is lazy-loaded)
 ├── App.css             # Landing page and shared styles
 ├── Components/         # One file per page or major component
 │   └── Steps/          # Tutor onboarding wizard steps
+├── data/               # Sample tutor data
 └── Images/             # WebP assets, re-exported from index.js
 ```
 

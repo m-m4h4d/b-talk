@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Container, Typography, Divider, Grid, Paper, Button, MobileStepper, useTheme } from '@mui/material';
-import { Navbar, Footer } from './';
+import Navbar from './Navbar';
+import Footer from './Footer';
 import { Students } from '../Images';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import { a, b, c, d } from '../Images';

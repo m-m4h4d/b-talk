@@ -10,8 +10,8 @@ const conversations = [
 ];
 
 const messages = [
-    { sender: 'Jane Smith', content: 'Hi Emma, I am working on a project that requires some data analysis. I saw your profile and thought you might be interested in collaborating. Let me know if you are available for a chat.', time: '2h ago', avatar: 'https://i.pravatar.cc/300' },
-    { sender: 'Emma Johnson', content: 'Hi Jane, I am interested in the collaboration. I am available for a chat tomorrow morning at 9:00am. Let me know if that works for you.', time: '1h ago', avatar: 'https://i.pravatar.cc/302' },
+    { sender: 'Jane Smith', content: 'Hi Emma, I am working on a project that requires some data analysis. I saw your profile and thought you might be interested in collaborating. Let me know if you are available for a chat.', type: 'text', time: '2h ago', avatar: 'https://i.pravatar.cc/300' },
+    { sender: 'Emma Johnson', content: 'Hi Jane, I am interested in the collaboration. I am available for a chat tomorrow morning at 9:00am. Let me know if that works for you.', type: 'text', time: '1h ago', avatar: 'https://i.pravatar.cc/302' },
 ];
 
 const Chat = () => {

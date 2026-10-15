@@ -4,27 +4,25 @@ import { Box, Container, Typography, Divider, Grid, Paper, Button, MobileStepper
 import { Navbar, Footer } from './';
 import { Students } from '../Images';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
-import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
 import { a, b, c, d } from '../Images';
 
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+const AUTOPLAY_INTERVAL = 4000;
 
 const images = [
     {
-        label: 'a',
+        label: 'Certified teachers',
         imgPath: a
     },
     {
-        label: 'b',
+        label: 'Online courses',
         imgPath: b
     },
     {
-        label: 'c',
+        label: 'Certification',
         imgPath: c
     },
     {
-        label: 'd',
+        label: '1-to-1 learning',
         imgPath: d
     },
 ];
@@ -33,10 +31,10 @@ const About = () => {
     const theme = useTheme();
     const navigate = useNavigate();
     const statistics = [
-        { label: 'Student Campuses', value: '5' },
+        { label: 'Subjects', value: '5' },
         { label: 'Enrolled Students', value: '10K' },
         { label: 'Certified Teachers', value: '45' },
-        { label: 'Student Clubs', value: '50+' },
+        { label: 'Countries', value: '50+' },
     ];
 
     const handleNavigation = (category) => {
@@ -54,9 +52,14 @@ const About = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const handleStepChange = (step) => {
-        setActiveStep(step);
-    };
+    // Auto-advance the carousel; restarting the timer on every step change
+    // gives the user a full interval after clicking Back/Next.
+    React.useEffect(() => {
+        const timer = setTimeout(() => {
+            setActiveStep((prevActiveStep) => (prevActiveStep + 1) % maxSteps);
+        }, AUTOPLAY_INTERVAL);
+        return () => clearTimeout(timer);
+    }, [activeStep, maxSteps]);
 
     return (
         <div>
@@ -79,57 +82,57 @@ const About = () => {
                         <Box sx={{ width: '45%' }}>
                             <img src={Students} alt="Students" style={{ width: '100%' }} />
                             <Typography variant="h5">
-                                <b>We are an outstanding college proin gravida velit auctor aliquet aenean sollicitudin, lorem quis bibendum.</b>
+                                <b>We connect learners with tutors who care about their progress.</b>
                             </Typography>
                         </Box>
                         <Box sx={{ width: '45%' }}>
                             <Typography variant="h5" gutterBottom>
-                                We Have An International Academic Community
+                                We Have An International Learning Community
                             </Typography>
                             <Typography variant="body1" gutterBottom>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.
+                                Our tutors and students come from all over the world. Whether you are learning a new language, preparing for an exam or picking up a technical skill, you can find a tutor who speaks your language and understands your goals.
                             </Typography><br />
                             <Typography variant="h5" gutterBottom>
                                 We Teach Over 10,000 Students
                             </Typography>
                             <Typography variant="body1" gutterBottom>
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+                                From school maths to business English and web programming, our students learn one-on-one with lessons planned around their pace. Every new student starts with a free trial lesson, so you can find the right tutor before you commit.
                             </Typography><br />
                             <Typography variant="h5" gutterBottom>
-                                We Are A Modern, Fast-growing College
+                                We Are A Modern, Fast-growing Platform
                             </Typography>
                             <Typography variant="body1" gutterBottom>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut ad minim veniam, nostrud exercitation. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt.
+                                Built in Canada, BestTalk brings scheduling, payments, messaging and progress tracking together in one place, so students and tutors can focus on learning instead of logistics.
                             </Typography>
                         </Box>
                     </Box><br /><br /><br />
                     <Box align="center" style={{ alignItems: 'center', padding: '4rem 0' }}>
                         <Box align="center" sx={{ maxWidth: 400, flexGrow: 1 }}>
-                            <AutoPlaySwipeableViews
-                                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                                index={activeStep}
-                                onChangeIndex={handleStepChange}
-                                enableMouseEvents
-                            >
-                                {images.map((step, index) => (
-                                    <div key={step.label}>
-                                        {Math.abs(activeStep - index) <= 2 ? (
-                                            <Box
-                                                component="img"
-                                                sx={{
-                                                    height: 255,
-                                                    display: 'block',
-                                                    maxWidth: 400,
-                                                    overflow: 'hidden',
-                                                    width: '100%',
-                                                }}
-                                                src={step.imgPath}
-                                                alt={step.label}
-                                            />
-                                        ) : null}
-                                    </div>
-                                ))}
-                            </AutoPlaySwipeableViews>
+                            <Box sx={{ overflow: 'hidden', maxWidth: 400 }}>
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        transition: 'transform 0.5s ease-in-out',
+                                        transform: `translateX(${(theme.direction === 'rtl' ? 1 : -1) * activeStep * 100}%)`,
+                                    }}
+                                >
+                                    {images.map((step) => (
+                                        <Box
+                                            key={step.label}
+                                            component="img"
+                                            sx={{
+                                                height: 255,
+                                                display: 'block',
+                                                flex: '0 0 100%',
+                                                width: '100%',
+                                                objectFit: 'cover',
+                                            }}
+                                            src={step.imgPath}
+                                            alt={step.label}
+                                        />
+                                    ))}
+                                </Box>
+                            </Box>
                             <MobileStepper
                                 steps={maxSteps}
                                 position="static"
@@ -166,7 +169,7 @@ const About = () => {
                     </Typography><br />
                     <Divider variant="middle" sx={{ margin: '0 auto', width: '5%', borderBottomWidth: 6, borderColor: '#00bcd4' }} /><br />
                     <Typography variant="h5" align="center" gutterBottom>
-                        Proin gravida velit auctor aliquet aenean sollicitudin, lorem quis bibendum auctor elit.
+                        Personalized, one-on-one learning with certified tutors, wherever you are.
                     </Typography><br /><br />
                     <Grid container spacing={2}>
                         {statistics.map((stat, index) => (

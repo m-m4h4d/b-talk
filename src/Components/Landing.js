@@ -16,14 +16,35 @@ function Home() {
     const courses = [
         { image: language, label: "Foreign Language" },
         { image: programming, label: "Web Programming" },
-        { image: programming, label: "Web Programming" },
         { image: math, label: "Maths" },
-        { image: design, label: "Graphic Design" },
-        { image: math, label: "Maths" },
-        { image: design, label: "Graphic Design" },
-        { image: math, label: "Maths" },
-        { image: language, label: "Foreign Language" },
-        { image: programming, label: "Maths" }
+        { image: design, label: "Graphic Design" }
+    ];
+
+    const features = [
+        {
+            img: a,
+            title: "Certified Teachers",
+            text: "Every tutor is vetted for qualifications and teaching experience before they can take on students.",
+            to: '/instructor-listing'
+        },
+        {
+            img: b,
+            title: "Online Courses",
+            text: "Learn from anywhere with live lessons that fit around your school, work and family schedule.",
+            to: '/instructor-listing'
+        },
+        {
+            img: c,
+            title: "Certification",
+            text: "Finish a course and earn a certificate you can share with schools and employers.",
+            to: '/about'
+        },
+        {
+            img: d,
+            title: "1-to-1 learning",
+            text: "Lessons are tailored to your goals and pace, with your tutor's full attention every session.",
+            to: '/instructor-listing'
+        }
     ];
 
     return (
@@ -70,12 +91,17 @@ function Home() {
                         <Container maxWidth='lg' style={{ background: "#F7F7F7", paddingBottom: "8vh", marginTop: "10vh", borderRadius: '2%' }}>
                             <Grid container spacing={4}>
                                 {courses.map((course, index) => (
-                                    <Grid key={index} size={{ xs: 12, sm: 6, md: 4, lg: 2.4 }}>
-                                        <Box className='learnBtn' textAlign="center" alignItems="center" justifyContent="center" style={{ overflow: 'hidden' }}>
+                                    <Grid key={index} size={{ xs: 12, sm: 6, md: 3 }}>
+                                        <Box
+                                            className='learnBtn'
+                                            component='button'
+                                            onClick={() => navigate('/instructor-listing')}
+                                            width='100%'
+                                            textAlign="center" alignItems="center" justifyContent="center" style={{ overflow: 'hidden' }}>
                                             <Box style={{ background: '#F1F2F6', borderRadius: '12px 12px 0 0' }}>
                                                 <img src={course.image} alt={course.label} width={'50%'} />
                                             </Box>
-                                            <Typography variant="h6" component="p" style={{ padding: '0.4rem 0' }}><b>{course.label}</b></Typography>
+                                            <Typography variant="h6" component="span" display="block" style={{ padding: '0.4rem 0' }}><b>{course.label}</b></Typography>
                                         </Box>
                                     </Grid>
                                 ))}
@@ -89,27 +115,23 @@ function Home() {
                             Why <span className='pink'>choose us</span>?
                         </Typography>
                         <Grid container spacing={6}>
-                            {[
-                                { img: a, title: "Certified Teachers" },
-                                { img: b, title: "Online Courses" },
-                                { img: c, title: "Certification" },
-                                { img: d, title: "1-to-1 learning" }].map((item, index) => (
-                                    <Grid key={index} size={{ xs: 12, md: 6 }}>
-                                        <div className='card'>
-                                            <img src={item.img} alt={`card-${index}`} style={{ borderRadius: '10px 0 0 10px' }} />
-                                            <span>
-                                                <Typography variant="h6" component="p"><b>{item.title}</b></Typography>
-                                                <Typography variant="body2">I am text block. Click edit button to change this text. Lorem ipsum dolor</Typography>
-                                                <Button
-                                                    onClick={() => alert('clicked')}
-                                                    variant="text"
-                                                    sx={{ textTransform: 'none', textDecoration: 'underline', borderRadius: 28 }}>
-                                                    Learn More
-                                                </Button>
-                                            </span>
-                                        </div>
-                                    </Grid>
-                                ))}
+                            {features.map((item, index) => (
+                                <Grid key={index} size={{ xs: 12, md: 6 }}>
+                                    <div className='card'>
+                                        <img src={item.img} alt={item.title} style={{ borderRadius: '10px 0 0 10px' }} />
+                                        <span>
+                                            <Typography variant="h6" component="p"><b>{item.title}</b></Typography>
+                                            <Typography variant="body2">{item.text}</Typography>
+                                            <Button
+                                                onClick={() => navigate(item.to)}
+                                                variant="text"
+                                                sx={{ textTransform: 'none', textDecoration: 'underline', borderRadius: 28 }}>
+                                                Learn More
+                                            </Button>
+                                        </span>
+                                    </div>
+                                </Grid>
+                            ))}
                         </Grid>
                     </Container>
                 </div>
